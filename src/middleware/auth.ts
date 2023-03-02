@@ -14,7 +14,6 @@ export const auth = (req, res, next) => {
                         message: 'err 401'
                     })
                 } else {
-                    console.log(payload)
                     req.decoded = payload;
                     next();
                 }

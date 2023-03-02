@@ -3,7 +3,6 @@ import {AppDataSource} from "../data-source";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import {SECRET} from "../middleware/auth";
-import SongService from "./SongService";
 import {Song} from "../model/song";
 
 class UserServices {
