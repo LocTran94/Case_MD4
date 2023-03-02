@@ -16,6 +16,7 @@ class PlaylistService{
     getMyPlaylist = async (idUser)=> {
         let sql = `select * from playlist p join user u on p.idUser = u.idUser where u.idUser = ${idUser}`;
         let playlists = await this.playlistRepository.query(sql);
+        // console.log(playlists)
         return playlists;
 
     }
@@ -39,7 +40,7 @@ class PlaylistService{
         return await this.playlistRepository.update({idPlaylist: idPlaylist}, newPlaylist)
     }
     findPlaylistByIdUser = async (idUser) => {
-        let sql = `select p.namePlaylist from playlist p join user u on p.idUser = u.idUser where u.idUser  = ${idUser}`
+        let sql = `select p.namePlaylist,p.idPlaylist from playlist p join user u on p.idUser = u.idUser where u.idUser  = ${idUser}`
         let playlists = this.playlistRepository.query(sql)
         return playlists
     }

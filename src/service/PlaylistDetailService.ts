@@ -30,6 +30,8 @@ class PlaylistDetailService {
         return playlistDetails
     }
 
+
+
     save = async (playlistDetail) => {
         playlistDetail.idPlaylist = playlistDetail.idPlayList;
         try {
@@ -37,7 +39,15 @@ class PlaylistDetailService {
         } catch (e) {
             console.log(e)
         }
+        return false;
     }
+
+
+
+
+
+
+
     removeSongPlaylist = async (idPlaylistDetail) => {
         let playlistDetails = await this.playlistDetailRepository.findOneBy({idPlaylistDetail: idPlaylistDetail});
         if (!playlistDetails) {
@@ -45,7 +55,7 @@ class PlaylistDetailService {
         }
         return this.playlistDetailRepository.delete({idPlaylistDetail: idPlaylistDetail});
     }
-    addS
+
 
 }
 

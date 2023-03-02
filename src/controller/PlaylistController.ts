@@ -16,6 +16,7 @@ class PlaylistController{
 
         try {
             let playlists = await playlistService.getMyPlaylist(req["decoded"].idUser);
+            console.log(playlists)
             res.status(200).json(playlists)
         } catch (e) {
             res.status(500).json(e.message)
