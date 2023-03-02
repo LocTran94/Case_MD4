@@ -11,6 +11,9 @@ class PlaylistController{
         this.userService = userService;
     }
     getAll = async (req: Request, res: Response) => {
+
+
+
         try {
             let playlists = await playlistService.getMyPlaylist(req["decoded"].idUser);
             res.status(200).json(playlists)
@@ -19,6 +22,8 @@ class PlaylistController{
         }
     }
     createPlaylist = async (req: Request, res: Response) => {
+
+        console.log(req.body)
         try {
             let playlists = await playlistService.save(req.body);
             res.status(200).json(playlists)

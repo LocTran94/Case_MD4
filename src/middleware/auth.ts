@@ -3,8 +3,10 @@ import jwt from 'jsonwebtoken';
 
 export const auth = (req, res, next) => {
     let authorization = req.headers.authorization;
+
     if (authorization) {
         let accessToken = req.headers.authorization.split(' ')[1];
+
         if (accessToken) {
             jwt.verify(accessToken, SECRET, (err, payload) => {
                 if (err) {
@@ -12,6 +14,7 @@ export const auth = (req, res, next) => {
                         message: 'err 401'
                     })
                 } else {
+                    console.log(payload)
                     req.decoded = payload;
                     next();
                 }

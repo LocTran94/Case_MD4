@@ -28,20 +28,27 @@ class SongService {
 
     save = async (song) => {
         let albums = await this.albumRepository.findOneBy({idAlbum: song.idAlbum})
+
         if (!albums) {
             return null
         }
-        albums.countSong = albums.countSong + 1;
+
+        albums.countSong +=  1;
         await this.albumRepository.update({idAlbum: song.idAlbum}, albums);
-        await this.songRepository.save(song);
-        return song.idAlbum;
+       return  await this.songRepository.save(song);
+
     }
     findById = async (idSong) => {
         let songs = await this.songRepository.findOneBy({idSong: idSong})
         return songs
     }
     updateSong = async (idSong, newSong) => {
+
+
+
         let songs = await this.songRepository.findOneBy({idSong: idSong})
+
+        // console.log(songs)
         if (!songs) {
             return null
         }
@@ -62,6 +69,7 @@ class SongService {
                        from album
                                 join song s on album.idAlbum = s.idAlbum where s.nameSong like '%${value}%'`
             let songs = await this.songRepository.query(sql);
+            console.log(songs)
             if(!songs){
                 return null;
             }

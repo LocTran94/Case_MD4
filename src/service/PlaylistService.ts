@@ -20,6 +20,10 @@ class PlaylistService{
 
     }
     save = async (playlist)=> {
+        console.log(playlist);
+
+        playlist.countSongPlaylist = 0;
+        playlist.imagePlaylist = playlist.imagePlayList;
 
         return this.playlistRepository.save(playlist)
     }

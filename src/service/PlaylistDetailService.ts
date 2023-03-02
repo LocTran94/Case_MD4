@@ -1,11 +1,13 @@
 import {AppDataSource} from "../data-source";
 import {PlaylistDetail} from "../model/playlistDetail";
 
-class PlaylistDetailService{
+class PlaylistDetailService {
     private playlistDetailRepository;
+
     constructor() {
         this.playlistDetailRepository = AppDataSource.getRepository(PlaylistDetail)
     }
+
     getAllPlaylistDetail = async () => {
         let sql = `select *
                    from song
@@ -16,23 +18,25 @@ class PlaylistDetailService{
     }
 
     getPlaylistDetail = async (idPlaylist) => {
-        let sql = `select * from song
+        let sql = `select *
+                   from song
                             join playlist_detail pd on song.idSong = pd.idSong
-                            join playlist p on pd.idPlaylist = p.idPlaylist 
-                            join category c on 	song.idCategory = c.idCategory 
+                            join playlist p on pd.idPlaylist = p.idPlaylist
+                            join category c on song.idCategory = c.idCategory
                             join album a on song.idAlbum = a.idAlbum
-                            join user u on p.idUser = u.idUser where p.idPlaylist = ${idPlaylist};`
+                            join user u on p.idUser = u.idUser
+                   where p.idPlaylist = ${idPlaylist};`
         let playlistDetails = await this.playlistDetailRepository.query(sql);
         return playlistDetails
     }
-    
-    save = async (playlistDetail)=> {
-        let playlistDetails = await this.playlistDetailRepository.findOneBy({idSong: playlistDetail.idSong});
-        if (!playlistDetails) {
-            await this.playlistDetailRepository.save(playlistDetail);
-            return true;
+
+    save = async (playlistDetail) => {
+        playlistDetail.idPlaylist = playlistDetail.idPlayList;
+        try {
+            return await this.playlistDetailRepository.save(playlistDetail);
+        } catch (e) {
+            console.log(e)
         }
-        return false;
     }
     removeSongPlaylist = async (idPlaylistDetail) => {
         let playlistDetails = await this.playlistDetailRepository.findOneBy({idPlaylistDetail: idPlaylistDetail});
@@ -44,4 +48,5 @@ class PlaylistDetailService{
     addS
 
 }
+
 export default new PlaylistDetailService();

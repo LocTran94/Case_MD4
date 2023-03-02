@@ -27,7 +27,7 @@ class SongController {
             } else {
                 data = [songs, categories];
             }
-            res.status(200).json(data);
+            res.status(200).json(songs);
         } catch (e) {
             res.status(500).json(e.message)
         }
@@ -46,18 +46,24 @@ class SongController {
     }
 
     createSong = async (req: Request, res: Response) => {
+
         try {
             let songs = await songService.save(req.body);
             res.status(200).json(songs)
         } catch (e) {
+            console.log(e)
             res.status(500).json(e.message)
         }
 
     }
     editSong = async (req: Request, res: Response) => {
+
+
+
         try {
             let idSong = req.params.idSong;
             let idUser = req["decoded"].idUser;
+
             let check = await this.songService.checkUser(idUser, idSong);
             if (check) {
                 let songs = await this.songService.updateSong(idSong, req.body);
@@ -107,8 +113,9 @@ class SongController {
 
     }
     searchNameSong = async (req: Request,res: Response) => {
+
         try{
-            let songs = await this.songService.findByNameSong(req.query.nameSong)
+            let songs = await this.songService.findByNameSong(req.params.nameSong)
             res.status(200).json(songs)
         }catch (e){
             res.status(500).json(e.message)

@@ -1,5 +1,6 @@
 import { text } from "express";
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import * as url from "url";
 
 
 @Entity()

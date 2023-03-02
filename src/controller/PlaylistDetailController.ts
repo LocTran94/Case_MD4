@@ -31,6 +31,7 @@ class PlaylistDetailController {
     }
 
     createPlaylistDetails = async (req: Request, res: Response) => {
+        console.log(1,req.body)
         try {
             let playlistDetails = await playlistDetailService.save(req.body);
             if (playlistDetails) {
