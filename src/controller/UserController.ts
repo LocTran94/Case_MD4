@@ -28,6 +28,7 @@ class UserController {
 
     checkOldPassword = async (req: Request, res: Response) => {
         try {
+            console.log(3)
             let response = await this.userServices.checkOldPassword(req.params.idUser, req.body.password);
             res.status(200).json(response);
         } catch (e) {
@@ -37,6 +38,7 @@ class UserController {
 
     checkNewPassword = async (req: Request, res: Response) => {
         try {
+            console.log(2)
             let response = await this.userServices.checkNewPassword(req.params.idUser, req.body.password);
             res.status(200).json(response);
         } catch (e) {
@@ -46,6 +48,7 @@ class UserController {
 
     changePassword = async (req: Request, res: Response) => {
         try {
+            console.log(1)
             let checkOldPassword = await this.userServices.checkOldPassword(req.params.idUser, req.body.oldPassword)
             let checkNewPassword = await this.userServices.checkNewPassword(req.params.idUser, req.body.newPassword)
             if (checkOldPassword === "User not found") {
@@ -63,6 +66,7 @@ class UserController {
                 }
             }
         } catch (e) {
+            console.log(e)
             res.status(500).json(e.message)
         }
     }
